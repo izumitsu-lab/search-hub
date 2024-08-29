@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>検索ポータル</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 95%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #4a6670;
+        }
+        .search-buttons {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+        }
+        .search-button {
+            background-color: #6b8e9b;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .search-button:hover {
+            background-color: #5a7a85;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea id="searchText" placeholder="検索したいテキストを入力してください..."></textarea>
+        
+        <div class="section">
+            <h2>検索・AI</h2>
+            <div class="search-buttons">
+                <button class="search-button" onclick="search('Google')">Google</button>
+                <button class="search-button" onclick="search('perplexity')">Perplexity (AI)</button>
+                <button class="search-button" onclick="search('chatgpt')">ChatGPT (AI)</button>
+                <button class="search-button" onclick="search('realtime')">リアルタイム</button>
+                <button class="search-button" onclick="search('yahoo_news')">Yahooニュース</button>
+                <button class="search-button" onclick="search('DuckDuckGo')">DuckGo (安全)</button>
+            </div>
+        </div>
+        <div class="section">
+            <h2>動画・画像</h2>
+            <div class="search-buttons">
+                <button class="search-button" onclick="search('youtube')">YouTube</button>
+                <button class="search-button" onclick="search('google_image')">画像検索</button>
+                <button class="search-button" onclick="search('unsplash')">Unsplash</button>
+                <button class="search-button" onclick="search('flickr')">flickr (cc)</button>
+                <button class="search-button" onclick="search('tiktok')">TikTok</button>
+            </div>
+        <div class="section">
+            <h2>ショッピング</h2>
+            <div class="search-buttons">
+                <button class="search-button" onclick="search('amazon')">Amazon</button>
+                <button class="search-button" onclick="search('yodobashi')">ヨドバシ</button>
+                <button class="search-button" onclick="search('yahoo_auction')">ヤフオク</button>
+                <button class="search-button" onclick="search('mercari')">メルカリ</button>
+                <button class="search-button" onclick="search('monotaro')">モノタロウ</button>
+            </div>
+        </div>
+        <div class="section">
+            <h2>辞書</h2>
+            <div class="search-buttons">
+                <button class="search-button" onclick="search('wikipedia')">Wikipedia</button>
+                <button class="search-button" onclick="search('Goo辞書')">Goo辞書</button>
+                <button class="search-button" onclick="search('英辞郎')">英辞郎</button>
+                <button class="search-button" onclick="search('Weblio')">Weblio</button>
+            </div>
+        </div>
+        </div>
+        <div class="section">
+            <h2>学術・文献</h2>
+            <div class="search-buttons">
+                <button class="search-button" onclick="search('scholar')">Scholar (学術)</button>
+                <button class="search-button" onclick="search('cinii')">CiNii (学術)</button>
+                <button class="search-button" onclick="search('NCBI')">NCBI</button>
+            </div>
+        </div>
+        <div class="section">
+            <h2>翻訳・校閲（学術用）</h2>
+            <div class="search-buttons">
+                <button class="search-button" onclick="search('DeepL')">DeepL (翻訳)</button>
+                <button class="search-button" onclick="search('perplexity_translate_ej')">Perplexity (翻訳)</button>
+                <button class="search-button" onclick="search('chatgpt_translate_ej')">ChatGPT (翻訳)</button>
+                <button class="search-button" onclick="search('perplexity_translate_je')">Perplexity (英作)</button>
+                <button class="search-button" onclick="search('chatgpt_translate_je')">ChatGPT (英作)</button>
+                <button class="search-button" onclick="search('perplexity_review')">Perplexity (校閲)</button>
+            </div>
+        </div>
+	</div>
+
+    <script>
+        function search(engine) {
+            var searchText = document.getElementById('searchText').value;
+            var searchUrl;
+            switch(engine) {
+                case 'Google':
+                    searchUrl = 'https://www.google.com/search?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'Bing':
+                    searchUrl = 'https://www.bing.com/search?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'Yahoo':
+                    searchUrl = 'https://search.yahoo.com/search?p=' + encodeURIComponent(searchText);
+                    break;
+                case 'yahoo_news':
+                    searchUrl = 'https://news.yahoo.co.jp/search?p=' + encodeURIComponent(searchText);
+                    break;
+                case 'DuckDuckGo':
+                    searchUrl = 'https://duckduckgo.com/?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'chatgpt':
+                    searchUrl = 'https://chat.openai.com/?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'perplexity':
+                    searchUrl = 'https://www.perplexity.ai/?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'Weblio':
+                    searchUrl = 'https://ejje.weblio.jp/content/' + encodeURIComponent(searchText);
+                    break;
+                case 'Goo辞書':
+                    searchUrl = 'https://dictionary.goo.ne.jp/srch/all/' + encodeURIComponent(searchText) + '/m0u/';
+                    break;
+                case 'DeepL':
+                    searchUrl = 'https://www.deepl.com/translator#en/ja/' + encodeURIComponent(searchText);
+                    break;
+                case 'Google翻訳':
+                    searchUrl = 'https://translate.google.com/?sl=auto&tl=ja&text=' + encodeURIComponent(searchText);
+                    break;
+                case '英辞郎':
+                    searchUrl = 'https://eow.alc.co.jp/search?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'wikipedia':
+                    searchUrl = 'http://ja.m.wikipedia.org/w/index.php?search=' + encodeURIComponent(searchText);
+                    break;
+                case 'youtube':
+                    searchUrl = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(searchText);
+                    break;
+                case 'tiktok':
+                    searchUrl = 'https://www.tiktok.com/search?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'google_image':
+                    searchUrl = 'https://www.google.com/search?&tbm=isch&prmd=niv&source=lnms&q=' + encodeURIComponent(searchText);
+                    break;
+                case 'amazon':
+                    searchUrl = 'https://www.amazon.co.jp/s?k=' + encodeURIComponent(searchText);
+                    break;
+                case 'yodobashi':
+                    searchUrl = 'https://www.yodobashi.com/?word=' + encodeURIComponent(searchText);
+                    break;
+                case 'yahoo_auction':
+                    searchUrl = 'https://auctions.yahoo.co.jp/search/search?auccat=&tab_ex=commerce&ei=utf-8&aq=-1&oq=&sc_i=&fr=auc_top&p=' + encodeURIComponent(searchText);
+                    break;
+                case 'mercari':
+                    searchUrl = 'https://jp.mercari.com/search?keyword=' + encodeURIComponent(searchText);
+                    break;
+                case 'monotaro':
+                    searchUrl = 'https://www.monotaro.com/s/?c=&q=' + encodeURIComponent(searchText);
+                    break;
+                case 'realtime':
+                    searchUrl = 'https://search.yahoo.co.jp/realtime/search?p=' + encodeURIComponent(searchText);
+                    break;
+                case 'unsplash':
+                    searchUrl = 'https://unsplash.com/ja/s/%E5%86%99%E7%9C%9F/' + encodeURIComponent(searchText);
+                    break;
+                case 'flickr':
+                    searchUrl = 'https://www.flickr.com/search/?license=2%2C3%2C4%2C5%2C6%2C9&text=' + encodeURIComponent(searchText);
+                    break;
+                case 'scholar':
+                    searchUrl = 'https://scholar.google.com/scholar?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'cinii':
+                    searchUrl = 'https://cir.nii.ac.jp/all?q=' + encodeURIComponent(searchText);
+                    break;
+                case 'NCBI':
+                    searchUrl = 'https://www.ncbi.nlm.nih.gov/search/all/?term=' + encodeURIComponent(searchText);
+                    break;
+                case 'spotify':
+                    searchUrl = 'https://open.spotify.com/search/' + encodeURIComponent(searchText);
+                    break;
+                case 'perplexity_translate_je':
+                    searchUrl = 'https://www.perplexity.ai/?q=' + encodeURIComponent('以下の文章を学術論文用に英訳してください：' + searchText);
+                    break;
+                case 'perplexity_translate_ej':
+                    searchUrl = 'https://www.perplexity.ai/?q=' + encodeURIComponent('以下の文章を翻訳してください：' + searchText);
+                    break;
+                case 'chatgpt_translate_je':
+                    searchUrl = 'https://chat.openai.com/?q=' + encodeURIComponent('以下の文章を学術論文用に英訳してください：' + searchText);
+                    break;
+                case 'chatgpt_translate_ej':
+                    searchUrl = 'https://chat.openai.com/?q=' + encodeURIComponent('以下の文章を翻訳してください：' + searchText);
+                    break;
+                case 'perplexity_review':
+                    searchUrl = 'https://www.perplexity.ai/?q=' + encodeURIComponent('以下の英文を校閲してください：' + searchText);
+                    break;
+            }
+            window.open(searchUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
