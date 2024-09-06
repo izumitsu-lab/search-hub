@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>検索ポータル</title>
+    <title>検索ハブ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,14 +20,22 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        textarea {
-            width: 95%;
-            height: 100px;
+		#searchText {
+				flex-grow: 2;
+				padding: 10px;
+				font-size: 16px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+        }
+        .search-area {
+            display: flex;
             margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: vertical;
+        }
+        #clear-button {
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
         }
         .section {
             margin-bottom: 20px;
@@ -36,6 +44,13 @@
             font-size: 1.2em;
             margin-bottom: 10px;
             color: #4a6670;
+        }
+		#search-bar {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
         .search-buttons {
             display: grid;
@@ -60,8 +75,11 @@
 </head>
 <body>
     <div class="container">
-        <textarea id="searchText" placeholder="検索したいテキストを入力してください..."></textarea>
-        
+		<div class="search-area">
+		<input type="text" id="searchText" placeholder="検索...">
+		<button id="clear-button" onclick="clearSearch()">クリア</button>
+        </div>
+ 
         <div class="section">
             <h2>検索・AI</h2>
             <div class="search-buttons">
@@ -124,6 +142,10 @@
 	</div>
 
     <script>
+		function clearSearch() {
+			document.getElementById('searchText').value = '';
+			}
+
         function search(engine) {
             var searchText = document.getElementById('searchText').value;
             var searchUrl;
